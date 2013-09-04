@@ -45,7 +45,7 @@
 
 @implementation SevenSwitch
 
-@synthesize inactiveColor, activeColor, onTintColor, borderColor, thumbTintColor, shadowColor;
+@synthesize inactiveColor, activeColor, onTintColor, borderColor, thumbTintColor, onThumbTintColor, shadowColor;
 @synthesize onImage, offImage;
 @synthesize isRounded;
 @synthesize on;
@@ -100,6 +100,7 @@
     self.onTintColor = [UIColor colorWithRed:0.30f green:0.85f blue:0.39f alpha:1.00f];
     self.borderColor = [UIColor colorWithRed:0.89f green:0.89f blue:0.91f alpha:1.00f];
     self.thumbTintColor = [UIColor whiteColor];
+    self.onThumbTintColor = [UIColor whiteColor];
     self.shadowColor = [UIColor grayColor];
     currentVisualValue = NO;
 
@@ -125,7 +126,12 @@
 
     // knob
     knob = [[UIView alloc] initWithFrame:CGRectMake(1, 1, self.frame.size.height - 2, self.frame.size.height - 2)];
-    knob.backgroundColor = self.thumbTintColor;
+    if (self.on == YES) {
+        knob.backgroundColor = self.onThumbTintColor;
+    }
+    else {
+        knob.backgroundColor = self.thumbTintColor;
+    }
     knob.layer.cornerRadius = (self.frame.size.height * 0.5) - 1;
     knob.layer.shadowColor = self.shadowColor.CGColor;
     knob.layer.shadowRadius = 2.0;
@@ -154,10 +160,12 @@
         if (self.on) {
             knob.frame = CGRectMake(self.bounds.size.width - (activeKnobWidth + 1), knob.frame.origin.y, activeKnobWidth, knob.frame.size.height);
             background.backgroundColor = self.onTintColor;
+            knob.backgroundColor = self.onThumbTintColor;
         }
         else {
             knob.frame = CGRectMake(knob.frame.origin.x, knob.frame.origin.y, activeKnobWidth, knob.frame.size.height);
             background.backgroundColor = self.activeColor;
+            knob.backgroundColor = self.thumbTintColor;
         }
     } completion:^(BOOL finished) {
         isAnimating = NO;
@@ -285,6 +293,14 @@
 }
 
 /*
+ *	Sets the knob color. Defaults to white.
+ */
+- (void)setOnThumbTintColor:(UIColor *)color {
+    onThumbTintColor = color;
+    knob.backgroundColor = color;
+}
+
+/*
  *	Sets the shadow color of the knob. Defaults to gray.
  */
 - (void)setShadowColor:(UIColor *)color {
@@ -387,6 +403,7 @@
                 knob.frame = CGRectMake(self.bounds.size.width - (normalKnobWidth + 1), knob.frame.origin.y, normalKnobWidth, knob.frame.size.height);
             background.backgroundColor = self.onTintColor;
             background.layer.borderColor = self.onTintColor.CGColor;
+            knob.backgroundColor = self.onThumbTintColor;
             onImageView.alpha = 1.0;
             offImageView.alpha = 0;
         } completion:^(BOOL finished) {
@@ -400,6 +417,7 @@
             knob.frame = CGRectMake(self.bounds.size.width - (normalKnobWidth + 1), knob.frame.origin.y, normalKnobWidth, knob.frame.size.height);
         background.backgroundColor = self.onTintColor;
         background.layer.borderColor = self.onTintColor.CGColor;
+        knob.backgroundColor = self.onThumbTintColor;
         onImageView.alpha = 1.0;
         offImageView.alpha = 0;
     }
@@ -421,10 +439,12 @@
             if (self.tracking) {
                 knob.frame = CGRectMake(1, knob.frame.origin.y, activeKnobWidth, knob.frame.size.height);
                 background.backgroundColor = self.activeColor;
+                knob.backgroundColor = self.thumbTintColor;
             }
             else {
                 knob.frame = CGRectMake(1, knob.frame.origin.y, normalKnobWidth, knob.frame.size.height);
                 background.backgroundColor = self.inactiveColor;
+                knob.backgroundColor = self.thumbTintColor;
             }
             background.layer.borderColor = self.borderColor.CGColor;
             onImageView.alpha = 0;
@@ -437,10 +457,12 @@
         if (self.tracking) {
             knob.frame = CGRectMake(1, knob.frame.origin.y, activeKnobWidth, knob.frame.size.height);
             background.backgroundColor = self.activeColor;
+            knob.backgroundColor = self.thumbTintColor;
         }
         else {
             knob.frame = CGRectMake(1, knob.frame.origin.y, normalKnobWidth, knob.frame.size.height);
             background.backgroundColor = self.inactiveColor;
+            knob.backgroundColor = self.thumbTintColor;
         }
         background.layer.borderColor = self.borderColor.CGColor;
         onImageView.alpha = 0;

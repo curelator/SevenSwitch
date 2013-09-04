@@ -61,6 +61,10 @@
  */
 @property (nonatomic, strong) UIColor *thumbTintColor;
 @property (nonatomic, strong) UIColor *knobColor __deprecated;
+/*
+ *	Sets the knob color when On. Defaults to white.
+ */
+@property (nonatomic, strong) UIColor *onThumbTintColor;
 
 /*
  *	Sets the shadow color of the knob. Defaults to gray.
