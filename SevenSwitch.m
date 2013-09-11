@@ -393,7 +393,7 @@
  */
 - (void)showOn:(BOOL)animated {
     CGFloat normalKnobWidth = self.bounds.size.height - 2;
-    CGFloat activeKnobWidth = normalKnobWidth + 5;
+    CGFloat activeKnobWidth = normalKnobWidth;
     if (animated) {
         isAnimating = YES;
         [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveEaseOut|UIViewAnimationOptionBeginFromCurrentState animations:^{
@@ -402,7 +402,7 @@
             else
                 knob.frame = CGRectMake(self.bounds.size.width - (normalKnobWidth + 1), knob.frame.origin.y, normalKnobWidth, knob.frame.size.height);
             background.backgroundColor = self.onTintColor;
-            background.layer.borderColor = self.onTintColor.CGColor;
+//            background.layer.borderColor = self.onTintColor.CGColor;
             knob.backgroundColor = self.onThumbTintColor;
             onImageView.alpha = 1.0;
             offImageView.alpha = 0;
@@ -416,7 +416,7 @@
         else
             knob.frame = CGRectMake(self.bounds.size.width - (normalKnobWidth + 1), knob.frame.origin.y, normalKnobWidth, knob.frame.size.height);
         background.backgroundColor = self.onTintColor;
-        background.layer.borderColor = self.onTintColor.CGColor;
+//        background.layer.borderColor = self.onTintColor.CGColor;
         knob.backgroundColor = self.onThumbTintColor;
         onImageView.alpha = 1.0;
         offImageView.alpha = 0;
@@ -432,7 +432,7 @@
  */
 - (void)showOff:(BOOL)animated {
     CGFloat normalKnobWidth = self.bounds.size.height - 2;
-    CGFloat activeKnobWidth = normalKnobWidth + 5;
+    CGFloat activeKnobWidth = normalKnobWidth;
     if (animated) {
         isAnimating = YES;
         [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveEaseOut|UIViewAnimationOptionBeginFromCurrentState animations:^{
@@ -446,7 +446,7 @@
                 background.backgroundColor = self.inactiveColor;
                 knob.backgroundColor = self.thumbTintColor;
             }
-            background.layer.borderColor = self.borderColor.CGColor;
+//            background.layer.borderColor = self.borderColor.CGColor;
             onImageView.alpha = 0;
             offImageView.alpha = 1.0;
         } completion:^(BOOL finished) {
@@ -464,7 +464,7 @@
             background.backgroundColor = self.inactiveColor;
             knob.backgroundColor = self.thumbTintColor;
         }
-        background.layer.borderColor = self.borderColor.CGColor;
+//        background.layer.borderColor = self.borderColor.CGColor;
         onImageView.alpha = 0;
         offImageView.alpha = 1.0;
     }
